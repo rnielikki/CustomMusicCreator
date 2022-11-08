@@ -1,0 +1,12 @@
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\bin\Debug\net6.0\CustomMusicCreator.deps.json
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\bin\Debug\net6.0\CustomMusicCreator.dll
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\bin\Debug\net6.0\CustomMusicCreator.pdb
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\CustomMusicCreator.csproj.AssemblyReference.cache
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\CustomMusicCreator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\CustomMusicCreator.AssemblyInfoInputs.cache
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\CustomMusicCreator.AssemblyInfo.cs
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\CustomMusicCreator.csproj.CoreCompileInputs.cache
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\CustomMusicCreator.dll
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\refint\CustomMusicCreator.dll
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\CustomMusicCreator.pdb
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\ref\CustomMusicCreator.dll
