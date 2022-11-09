@@ -1,6 +1,6 @@
 ﻿namespace CustomMusicCreator.Exceptions
 {
-    internal class DataLengthException : Exception
+    internal class DataLengthException : ApplicationException
     {
         public DataLengthException()
         {

@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[4.18.2, )"
             },
+            "NAudio.Core": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "coverlet.collector": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -125,9 +129,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "FFMpegCore": {
+            "NAudio.Core": {
               "target": "Package",
-              "version": "[4.8.0, )"
+              "version": "[2.1.0, )"
             }
           },
           "imports": [

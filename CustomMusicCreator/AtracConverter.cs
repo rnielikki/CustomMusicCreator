@@ -1,6 +1,4 @@
-﻿using FFMpegCore;
-
-namespace CustomMusicCreator
+﻿namespace CustomMusicCreator
 {
     internal class AtracConverter
     {
@@ -26,7 +24,6 @@ namespace CustomMusicCreator
                 var fileName = Path.GetFileName(filePath);
 
                 using var stream = File.OpenRead(filePath);
-                ValidateWav(stream);
                 //execute here
                 //File.Move(Path.GetFileName(filePath), newName);
                 if (!File.Exists(
@@ -41,37 +38,6 @@ namespace CustomMusicCreator
             {
                 _logger.LogError(e.Message);
                 throw;
-            }
-        }
-        internal void ValidateWav(FileStream source)
-        {
-            string fileName = Path.GetFileName(source.Name);
-            var mediaInfo = FFProbe.Analyse(source);
-            var timeSpan = new TimeSpan(0, 0, 4);
-            _logger.LogMessage($"Validating {fileName}...");
-            if (mediaInfo.PrimaryAudioStream == null)
-            {
-                throw new ArgumentException($"Error: {fileName} is invalid sound file.");
-            }
-            if (mediaInfo.Format.FormatName != "wav")
-            {
-                throw new FormatException($"Error: {fileName} must be WAV file");
-            }
-            var sampleRate = mediaInfo.PrimaryAudioStream.SampleRateHz;
-            var duration =
-                new TimeSpan(
-                source.Length * 80_000_000
-                / mediaInfo.PrimaryAudioStream.BitRate);
-            var difference = duration - timeSpan;
-            if (difference>_range|| difference< -_range)
-            {
-                string detailMessage = (difference > TimeSpan.Zero) ? $"{difference} longer" : $"{-difference} shorter";
-                throw new Exceptions.DataLengthException
-                ($"Error: The time of {fileName} must be EXACTLY 4 seconds, but it is {detailMessage}");
-            }
-            else if (sampleRate != 44100)
-            {
-                new InvalidDataException($"Sample rate of {fileName} must be 44100Hz, but the stream is {sampleRate} Hz.");
             }
         }
     }
