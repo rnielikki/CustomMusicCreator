@@ -11,3 +11,4 @@ C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\ne
 C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\CustomMusicCreator.pdb
 C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\obj\Debug\net6.0\ref\CustomMusicCreator.dll
 C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\bin\Debug\net6.0\resources\psp_at3tool.exe
+C:\Users\Lumi\source\repos\C#\CustomMusicCreator\CustomMusicCreator\bin\Debug\net6.0\resources\msvcr71.dll

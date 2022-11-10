@@ -26,5 +26,8 @@
   <ItemGroup>
     <ProjectReference Include="..\CustomMusicCreator\CustomMusicCreator.csproj" />
   </ItemGroup>
+	<ItemGroup>
+		<None Update="testfiles\**"  CopyToOutputDirectory="PreserveNewest"  />
+	</ItemGroup>
 
 </Project>

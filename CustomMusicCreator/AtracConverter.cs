@@ -2,12 +2,14 @@
 {
     internal class AtracConverter
     {
-        private readonly ILogger _logger;
-        private readonly TimeSpan _range;
+        private ProcessExecuter _executer;
         internal AtracConverter(ILogger logger)
         {
-            _logger = logger;
-            _range = new TimeSpan(TimeSpan.TicksPerMillisecond / 2);
+            _executer = new ProcessExecuter("psp_at3tool.exe", logger);
+            if (!File.Exists(Path.Combine(ProcessExecuter.ResourcePath, "msvcr71.dll")))
+            {
+                throw new FileNotFoundException($"Error: Couldn't find msvcr71.dll in {ProcessExecuter.ResourcePath} directory.");
+            }
         }
         internal void Convert(string[] filePath, string prefix)
         {
@@ -18,26 +20,22 @@
         }
         internal void ConvertEach(string filePath, string newName)
         {
-            try
-            {
-                var fullPath = Path.GetFullPath(filePath);
-                var fileName = Path.GetFileName(filePath);
+            var fullPath = Path.GetFullPath(filePath);
+            var fileName = Path.GetFileName(filePath);
+            var newFullPath = Path.Combine(Path.GetDirectoryName(fullPath) ?? Directory.GetDirectoryRoot(fullPath), newName);
 
-                using var stream = File.OpenRead(filePath);
-                //execute here
-                //File.Move(Path.GetFileName(filePath), newName);
-                if (!File.Exists(
-                    Path.Combine(Path.GetDirectoryName(filePath) ?? Directory.GetDirectoryRoot(filePath), newName)))
-                {
-                    _logger.LogError("Error from [PSP_AT3TOOL]");
-                    throw new FileNotFoundException($"Failed to create file from {fileName}. " +
-                        $"The converting process didn't generate the file.");
-                }
-            }
-            catch(Exception e)
+            using var stream = File.OpenRead(filePath);
+            //execute here
+            _executer.ExecuteProcess($"-e -br 48 {fullPath} {newFullPath}");
+            if (!File.Exists(newFullPath))
             {
-                _logger.LogError(e.Message);
-                throw;
+                throw new InvalidOperationException($"[PSP_AT3TOOL] Failed to create file from {fileName}. " +
+                    $"The converting process didn't generate the file.");
+            }
+            else if (new FileInfo(newFullPath).Length == 0)
+            {
+                throw new InvalidOperationException($"[PSP_AT3TOOL] Failed to create file from {fileName}. " +
+                    $"The converting process generated empty file, possibly having format issue.");
             }
         }
     }
