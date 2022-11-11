@@ -31,7 +31,7 @@ namespace CustomMusicCreatorTest
         [Fact]
         void SplitMusicTest()
         {
-            string tempPath = TestInfo.GetFilePath("split-target", PataMusicCreator.TempPath);
+            string tempPath = TestInfo.GetFilePath("split-target", FilePathUtils.TempPath);
             string inputWav = TestInfo.GetFilePath("split-target", "input.wav");
             if (Directory.Exists(tempPath))
             {

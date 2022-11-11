@@ -12,7 +12,7 @@ namespace CustomMusicCreator
         {
             _range = new TimeSpan(TimeSpan.TicksPerMillisecond / 2);
         }
-        internal IEnumerable<string> ValidateAndLoadPaths(DirectoryInfo directoryInfo, string filePath, string prefix, TimeSpan timeSpan)
+        internal string[] ValidateAndLoadPaths(DirectoryInfo directoryInfo, string filePath, string prefix, TimeSpan timeSpan)
         {
             using var reader = new WaveFileReader(filePath);
             ValidateWav(reader, timeSpan);
@@ -22,20 +22,20 @@ namespace CustomMusicCreator
             }
             else
             {
-                return new List<string>() { filePath };
+                return new string[] { filePath };
             }
         }
-        internal IEnumerable<string> SplitMusic(WaveFileReader reader, DirectoryInfo directoryInfo, string prefix)
+        internal string[] SplitMusic(WaveFileReader reader, DirectoryInfo directoryInfo, string prefix)
         {
             int amount = (int)(Math.Round(reader.TotalTime.TotalSeconds, 0)/4);
-            List<string> filePaths = new List<string>();
+            string[] filePaths = new string[amount];
 
             for(int i = 0;i<amount;i++)
             {
                 string pathName = Path.Combine(directoryInfo.FullName, $"{prefix}-{i + 1}.wav");
                 WavFileUtils.TrimWavFile(
                     reader, pathName, TimeSpan.FromSeconds(4 * i), TimeSpan.FromSeconds(4));
-                filePaths.Add(pathName);
+                filePaths[i]=pathName;
             }
             return filePaths;
         }

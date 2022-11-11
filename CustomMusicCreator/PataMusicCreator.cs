@@ -6,12 +6,15 @@
     public class PataMusicCreator
     {
         private ILogger _logger;
-        public const string TempPath = ".patamusic_temp";
         private MusicSplitter _splitter;
+        private AtracConverter _atracConverter;
+        private SgdConverter _sgdConverter;
         public PataMusicCreator(ILogger logger)
         {
             _logger = logger;
             _splitter = new MusicSplitter();
+            _atracConverter = new AtracConverter(logger);
+            _sgdConverter = new SgdConverter(logger);
         }
         /// <summary>
         /// Start converting music.
@@ -31,7 +34,7 @@
                 {
                     throw new InvalidDataException($"Directory [{destinationPath}] is invalid.");
                 }
-                string tempPath = Path.Combine(destinationPath, TempPath);
+                string tempPath = Path.Combine(destinationPath, FilePathUtils.TempPath);
                 if (Directory.Exists(tempPath))
                 {
                     Directory.Delete(tempPath, true);
@@ -53,9 +56,15 @@
         private void ConvertEach(DirectoryInfo directoryInfo, string filePath, string prefix, TimeSpan timeSpan)
         {
             string fileName = Path.GetFileName(filePath);
-            _logger.LogMessage($"Started to convert {fileName}...");
-            _splitter.ValidateAndLoadPaths(directoryInfo, filePath, prefix, timeSpan);
-            _logger.LogMessage($"{fileName} successfully converted.");
+            _logger.LogMessage($"[ SPLITTER ] Started to Split --- {fileName}");
+            var splitted = _splitter.ValidateAndLoadPaths(directoryInfo, filePath, prefix, timeSpan);
+            _logger.LogMessage($"{fileName} successfully splitted.");
+            _logger.LogMessage($"[ ATRAC CONVERTER ] Started to convert to Atrac--- {fileName}");
+            var atracConverted = _atracConverter.Convert(splitted, prefix);
+            _logger.LogMessage($"{fileName} successfully converted to atrac format.");
+            _logger.LogMessage($"[ SGD CONVERTER ] Started to convert to Sgd--- {fileName}");
+            var sgdConverted = _sgdConverter.ConvertAll(atracConverted);
+            _logger.LogMessage($"{fileName} successfully converted to sgd.");
         }
     }
 }
