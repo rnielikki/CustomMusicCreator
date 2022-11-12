@@ -11,7 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
-     <None Update="resources\**"  CopyToOutputDirectory="PreserveNewest"  />
+     <None Update="resources\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="libbndwrapper.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
