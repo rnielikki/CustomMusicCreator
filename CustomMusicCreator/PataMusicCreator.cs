@@ -1,4 +1,6 @@
-﻿namespace CustomMusicCreator
+﻿using CustomMusicCreator.Utils;
+
+namespace CustomMusicCreator
 {
     /// <summary>
     /// Entry class of the app. This must be public.
@@ -49,6 +51,7 @@
             }
             catch(Exception e)
             {
+                //Don't remove temp file here. Temp files can help for diagnosing.
                 _logger.LogError(e.Message);
                 throw;
             }

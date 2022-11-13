@@ -1,5 +1,6 @@
 using CustomMusicCreator;
 using CustomMusicCreator.Exceptions;
+using CustomMusicCreator.Models;
 using Moq;
 
 namespace CustomMusicCreatorTest

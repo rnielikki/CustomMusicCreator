@@ -1,5 +1,6 @@
 ﻿using CustomMusicCreator;
 using CustomMusicCreator.Exceptions;
+using CustomMusicCreator.Utils;
 using NAudio.Wave;
 
 namespace CustomMusicCreatorTest

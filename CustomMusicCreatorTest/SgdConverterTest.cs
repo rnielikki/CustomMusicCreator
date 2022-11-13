@@ -1,4 +1,5 @@
 ﻿using CustomMusicCreator;
+using CustomMusicCreator.Models;
 using Moq;
 
 namespace CustomMusicCreatorTest
