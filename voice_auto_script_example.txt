@@ -1,0 +1,20 @@
+# song orders
+(patapata -> ponpon -> chakachaka)xn -> ponpata -> ponchaka -> dondon -> donchaka
+
+bgm-voice 1-7: common command sounds
+bgm-voice 8-14: pre-fever sounds
+bgm-voice 15-24: fever sounds
+* 0: patapata0 / 1: ponpon0 / 2: chakachaka0 (common)
+* 8: patapata1 / 9: ponpon1 / 10: chakachaka1
+* 16: patapata2 / 17: ponpon2 / 18: chakachaka2
+* 19: patapata3 / 20: ponpon3 / 21: chakachaka3
+
+# Script for extracting wav sound (will be updated later!)
+
+All patapon voices are 11025Hz.
+` 
+Get-ChildItem -filter *.wav | Foreach-Object {
+	$outputName = "res\\$($_.Name)"
+	ffmpeg -i $_.Name -af "asetrate=11025" $outputName
+}
+`

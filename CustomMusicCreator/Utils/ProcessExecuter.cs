@@ -1,20 +1,18 @@
 ﻿using System.Diagnostics;
-using CustomMusicCreator.Models;
 
 namespace CustomMusicCreator.Utils
 {
     internal class ProcessExecuter
     {
-        public const string ResourcePath = "resources";
         private string _exePath;
         private ILogger _logger;
 
         internal ProcessExecuter(string exeName, ILogger logger)
         {
-            _exePath = Path.Combine(ResourcePath, exeName);
+            _exePath = Path.Combine(FilePathUtils.ResourcePath, exeName);
             if (!File.Exists(_exePath))
             {
-                throw new FileNotFoundException($"The executable [{exeName}] doesn't exist in {ResourcePath} directory.");
+                throw new FileNotFoundException($"The executable [{exeName}] doesn't exist in {FilePathUtils.ResourcePath} directory.");
             }
             _logger = logger;
         }

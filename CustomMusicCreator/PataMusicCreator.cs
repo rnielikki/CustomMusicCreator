@@ -1,4 +1,5 @@
-﻿using CustomMusicCreator.Utils;
+﻿using CustomMusicCreator.Logics;
+using CustomMusicCreator.Utils;
 
 namespace CustomMusicCreator
 {
@@ -27,8 +28,8 @@ namespace CustomMusicCreator
         /// <param name="level2MusicPath">No fever command music phase 2 (fever worm bounces)</param>
         /// <param name="level3MusicPath">Fever command music</param>
         /// <note>For level 2 and level 3 music, the first 4 seconds part is intro, which means, the loop part starts from 00:04.</note>
-        public void Convert(string baseMusicPath0, string baseMusicPath1,
-            string level1MusicPath, string level2MusicPath, string level3MusicPath, string destinationPath)
+        public void Convert(string baseMusicPath, string level1MusicPath, string level2MusicPath, string level3MusicPath,
+            string voiceTheme, string destinationPath)
         {
             try
             {
@@ -43,11 +44,36 @@ namespace CustomMusicCreator
                 }
                 var tempDirectory = Directory.CreateDirectory(tempPath);
 
-                ConvertEach(tempDirectory, baseMusicPath0, "base0", new TimeSpan(0,0,4));
-                ConvertEach(tempDirectory,baseMusicPath1, "base1", new TimeSpan(0,0,4));
-                ConvertEach(tempDirectory, level1MusicPath, "lv1", new TimeSpan(0,0,16));
-                ConvertEach(tempDirectory, level2MusicPath, "lv2", new TimeSpan(0,0,20));
-                ConvertEach(tempDirectory, level3MusicPath, "lv3", new TimeSpan(0,1,4));
+                var musicUnits = new PataMusicUnit[]
+                {
+                    new PataMusicUnit(_logger, _splitter, _atracConverter, tempDirectory)
+                        .SetInfo(baseMusicPath, "base", new TimeSpan(0, 0, 8)),
+
+                    new PataMusicUnit(_logger, _splitter, _atracConverter, tempDirectory)
+                        .SetInfo(level1MusicPath, "level1", new TimeSpan(0, 0, 16)),
+
+                    new PataMusicUnit(_logger, _splitter, _atracConverter, tempDirectory)
+                    .SetInfo(level2MusicPath, "level2", new TimeSpan(0, 0, 20)),
+                    new PataMusicUnit(_logger, _splitter, _atracConverter, tempDirectory)
+                        .SetInfo(level3MusicPath, "level3", new TimeSpan(0, 1, 8))
+                };
+                foreach (var musicUnit in musicUnits)
+                {
+                    musicUnit.Split();
+                }
+                List<string> atracList = new List<string>();
+                foreach (var musicUnit in musicUnits)
+                {
+                    atracList.AddRange(musicUnit.ConvertToAtrac());
+                }
+                _logger.LogMessage($"[ SGD CONVERTER ] Started to convert to Sgd");
+                var sgdConverted = _sgdConverter.ConvertAll(atracList.ToArray());
+                _logger.LogMessage($"Files are converted to SGD successfully.");
+
+                using var repacker = new BgmRepacker();
+                repacker.ReplaceFiles(sgdConverted);
+                repacker.ReplaceFile(new VoiceRetriever().LoadSgd(voiceTheme));
+                repacker.Pack(destinationPath);
             }
             catch(Exception e)
             {
@@ -55,19 +81,6 @@ namespace CustomMusicCreator
                 _logger.LogError(e.Message);
                 throw;
             }
-        }
-        private void ConvertEach(DirectoryInfo directoryInfo, string filePath, string prefix, TimeSpan timeSpan)
-        {
-            string fileName = Path.GetFileName(filePath);
-            _logger.LogMessage($"[ SPLITTER ] Started to Split --- {fileName}");
-            var splitted = _splitter.ValidateAndLoadPaths(directoryInfo, filePath, prefix, timeSpan);
-            _logger.LogMessage($"{fileName} successfully splitted.");
-            _logger.LogMessage($"[ ATRAC CONVERTER ] Started to convert to Atrac--- {fileName}");
-            var atracConverted = _atracConverter.Convert(splitted, prefix);
-            _logger.LogMessage($"{fileName} successfully converted to atrac format.");
-            _logger.LogMessage($"[ SGD CONVERTER ] Started to convert to Sgd--- {fileName}");
-            var sgdConverted = _sgdConverter.ConvertAll(atracConverted);
-            _logger.LogMessage($"{fileName} successfully converted to sgd.");
         }
     }
 }

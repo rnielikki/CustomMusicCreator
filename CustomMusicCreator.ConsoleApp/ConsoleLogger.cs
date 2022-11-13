@@ -1,6 +1,4 @@
-﻿using CustomMusicCreator.Models;
-
-namespace CustomMusicCreator.ConsoleApp
+﻿namespace CustomMusicCreator.ConsoleApp
 {
     internal class ConsoleLogger : ILogger
     {

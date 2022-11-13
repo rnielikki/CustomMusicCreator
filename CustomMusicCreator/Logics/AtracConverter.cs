@@ -1,17 +1,16 @@
-﻿using CustomMusicCreator.Models;
-using CustomMusicCreator.Utils;
+﻿using CustomMusicCreator.Utils;
 
 namespace CustomMusicCreator
 {
     internal class AtracConverter
     {
-        private ProcessExecuter _executer;
+        private readonly ProcessExecuter _executer;
         internal AtracConverter(ILogger logger)
         {
             _executer = new ProcessExecuter("psp_at3tool.exe", logger);
-            if (!File.Exists(Path.Combine(ProcessExecuter.ResourcePath, "msvcr71.dll")))
+            if (!File.Exists(Path.Combine(FilePathUtils.ResourcePath, "msvcr71.dll")))
             {
-                throw new FileNotFoundException($"Error: Couldn't find msvcr71.dll in {ProcessExecuter.ResourcePath} directory.");
+                throw new FileNotFoundException($"Error: Couldn't find msvcr71.dll in {FilePathUtils.ResourcePath} directory.");
             }
         }
         internal string[] Convert(string[] filePath, string prefix)
@@ -20,12 +19,11 @@ namespace CustomMusicCreator
             for(int i=0;i<filePath.Length;i++)
             {
                 string name = $"ptpat_battle_{prefix}_{i + 1:00}.wav";
-                ConvertEach(filePath[i], name);
-                results[i] = name;
+                results[i] = ConvertEach(filePath[i], name);
             }
             return results;
         }
-        internal void ConvertEach(string filePath, string newName)
+        internal string ConvertEach(string filePath, string newName)
         {
             var fullPath = Path.GetFullPath(filePath);
             var fileName = Path.GetFileName(filePath);
@@ -43,6 +41,7 @@ namespace CustomMusicCreator
                 throw new InvalidOperationException($"[PSP_AT3TOOL] Failed to create file from {fileName}. " +
                     $"The converting process generated empty file, possibly having format issue.");
             }
+            return newFullPath;
         }
     }
 }

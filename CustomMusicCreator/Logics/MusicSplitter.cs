@@ -17,14 +17,11 @@ namespace CustomMusicCreator
         {
             using var reader = new WaveFileReader(filePath);
             ValidateWav(reader, timeSpan);
-            if (timeSpan.Seconds > 4)
+            if (timeSpan.Seconds <= 4)
             {
-                return SplitMusic(reader, directoryInfo, prefix);
+                throw new InvalidOperationException("Timespan must be more than 4 seconds.");
             }
-            else
-            {
-                return new string[] { filePath };
-            }
+            return SplitMusic(reader, directoryInfo, prefix);
         }
         internal string[] SplitMusic(WaveFileReader reader, DirectoryInfo directoryInfo, string prefix)
         {

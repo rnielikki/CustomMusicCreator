@@ -1,9 +1,9 @@
-﻿using System.Runtime.InteropServices;
-using CustomMusicCreator.Models;
+﻿using CustomMusicCreator.Utils;
+using System.Runtime.InteropServices;
 
 namespace CustomMusicCreator
 {
-    public class BgmRepacker :IDisposable
+    internal class BgmRepacker :IDisposable
     {
         [DllImport("libbndwrapper.dll", CallingConvention =CallingConvention.Cdecl)]
         private static extern IntPtr BND_Create();
@@ -20,12 +20,17 @@ namespace CustomMusicCreator
         [DllImport("libbndwrapper.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Save(IntPtr bnd, string path);
 
-        private ILogger _logger;
-        private IntPtr _bnd;
-        private string[] _bndContents;
-        public BgmRepacker(string path, ILogger logger)
+        private readonly IntPtr _bnd;
+        private readonly string[] _bndContents;
+
+        private const string _bgmRelativepath = "files/BGM.DAT";
+        internal BgmRepacker()
         {
-            _logger = logger;
+            string path = Path.Combine(FilePathUtils.ResourcePath, _bgmRelativepath);
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException($"BGM.DAT not found from ${path}");
+            }
             _bnd =  BND_Create();
             Load(_bnd, path, false);
 
@@ -47,7 +52,7 @@ namespace CustomMusicCreator
         internal void ReplaceFile(string filePath)
         {
             if (!File.Exists(filePath)) throw new ArgumentException($"The file {filePath} doesn't exist.");
-            var name = Path.GetFileNameWithoutExtension(filePath);
+            var name = Path.GetFileName(filePath);
             int id = Array.IndexOf(_bndContents, name);
             if (id < 0) throw new ArgumentException($"The bnd file doens't contain {name}." +
                 $"Remember to match file name (without extension) same as the bnd name.");
@@ -57,7 +62,7 @@ namespace CustomMusicCreator
         {
             try
             {
-                Save(_bnd, outputPath);
+                Save(_bnd, Path.Combine(outputPath, "BGM.DAT"));
             }
             catch{
                 throw new ExternalException("Failed to pack the file. But if you give another shot, it may success.");

@@ -25,7 +25,7 @@ namespace CustomMusicCreator.Utils
         {
             reader.Position = startPos;
             byte[] buffer = new byte[1024];
-            while (reader.Position < endPos)
+            while (reader.Position < endPos && reader.Position < reader.Length)
             {
                 int bytesRequired = (int)(endPos - reader.Position);
                 if (bytesRequired > 0)

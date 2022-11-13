@@ -3,6 +3,7 @@
     public static class FilePathUtils
     {
         public const string TempPath = ".patamusic_temp";
+        public const string ResourcePath = "resources";
         internal static string GetParentDirectory(string file) =>
             Path.GetDirectoryName(file)
                 ?? throw new ArgumentException($"The file path {file} is invalid.");

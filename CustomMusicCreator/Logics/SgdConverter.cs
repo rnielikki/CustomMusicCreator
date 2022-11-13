@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using CustomMusicCreator.Models;
 using CustomMusicCreator.Utils;
 
 namespace CustomMusicCreator
@@ -15,7 +14,7 @@ namespace CustomMusicCreator
         private const long _validLength = 24928;
         internal SgdConverter(ILogger logger)
         {
-            _samplePath = Path.Combine(ProcessExecuter.ResourcePath, _sampleRelativePath);
+            _samplePath = Path.Combine(FilePathUtils.ResourcePath, _sampleRelativePath);
             _executer = new ProcessExecuter("atrac2sgd.exe", logger);
         }
         internal string[] ConvertAll(string[] filePaths)

@@ -1,14 +1,12 @@
 using CustomMusicCreator;
-using CustomMusicCreator.Exceptions;
-using CustomMusicCreator.Models;
 using Moq;
 
 namespace CustomMusicCreatorTest
 {
     public class AtracConverterTest
     {
-        private AtracConverter _converter;
-        private Mock<ILogger> _logger;
+        private readonly AtracConverter _converter;
+        private readonly Mock<ILogger> _logger;
         public AtracConverterTest()
         {
             _logger = new Mock<ILogger>();

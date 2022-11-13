@@ -1,13 +1,12 @@
 ﻿using CustomMusicCreator;
-using CustomMusicCreator.Models;
 using Moq;
 
 namespace CustomMusicCreatorTest
 {
     public class SgdConverterTest
     {
-        private Mock<ILogger> _loggerMock;
-        private ILogger _logger;
+        private readonly Mock<ILogger> _loggerMock;
+        private readonly ILogger _logger;
         public SgdConverterTest()
         {
             _loggerMock = new Mock<ILogger>();
