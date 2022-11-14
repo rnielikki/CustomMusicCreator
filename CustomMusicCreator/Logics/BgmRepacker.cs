@@ -58,11 +58,16 @@ namespace CustomMusicCreator
                 $"Remember to match file name (without extension) same as the bnd name.");
             Replace_File(_bnd, id, filePath);
         }
-        internal void Pack(string outputPath)
+        internal void Pack(string outputPath, bool overwrite = true)
         {
             try
             {
-                Save(_bnd, Path.Combine(outputPath, "BGM.DAT"));
+                if (overwrite)
+                {
+                    if(File.Exists(outputPath)) File.Delete(outputPath);
+                    Save(_bnd, outputPath);
+                }
+                else Save(_bnd, FilePathUtils.GetSaveFileName(outputPath));
             }
             catch{
                 throw new ExternalException("Failed to pack the file. But if you give another shot, it may success.");

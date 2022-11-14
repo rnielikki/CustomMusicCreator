@@ -1,0 +1,22 @@
+﻿<Window x:Class="PanPakapon.ConvertWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PanPakapon"
+        mc:Ignorable="d" Height="400" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="Converting..." FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Height="53" Width="186"/>
+        <RichTextBox Grid.Row="2" Margin="24">
+            <FlowDocument>
+            </FlowDocument>
+        </RichTextBox>
+    </Grid>
+</Window>
