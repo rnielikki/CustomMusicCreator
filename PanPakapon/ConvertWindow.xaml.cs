@@ -22,6 +22,38 @@ namespace PanPakapon
         public ConvertWindow()
         {
             InitializeComponent();
+            Owner = App.Current.MainWindow;
+            var logger = new TextBoxLogger(LogBox);
+            logger.Clear();
+            logger.LogMessage("message");
+            logger.LogMessage("message");
+            logger.LogError("error");
+            logger.LogMessage("message");
+            logger.LogWarning("warning");
+            logger.LogMessage("message");
+            logger.LogError("error");
+            logger.LogWarning("warning");
+            logger.LogMessage("message");
+            logger.LogMessage("message");
+            logger.LogMessage("message");
+            logger.LogWarning("warning");
+            logger.LogMessage("message");
+            logger.LogError("error");
+            logger.LogMessage("message");
+            logger.LogMessage("message");
+            logger.LogError("error");
+            logger.LogMessage("message");
+            logger.LogWarning("warning");
+            logger.LogMessage("message");
+            logger.LogError("error");
+            logger.LogWarning("warning");
+            logger.LogMessage("message");
+            logger.LogMessage("message");
+            logger.LogMessage("message");
+            logger.LogWarning("warning");
+            logger.LogMessage("message");
+            logger.LogError("error");
+
         }
     }
 }

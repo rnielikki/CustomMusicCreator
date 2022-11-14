@@ -65,5 +65,14 @@ namespace PanPakapon
                 FileName[index] = fileName;
             }
         }
+
+        private void Convert(object sender, RoutedEventArgs e)
+        {
+            var convertWindow = new ConvertWindow();
+            bool? result = convertWindow.ShowDialog();
+            if(result == true)
+            {
+            }
+        }
     }
 }

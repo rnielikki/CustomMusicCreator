@@ -31,5 +31,10 @@
         <Style TargetType="{x:Type ListBox}">
             <Setter Property="Background" Value="#FF29123C"/>
         </Style>
+        <Style TargetType="{x:Type Paragraph}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="FontFamily" Value="Courier New"/>
+        </Style>
     </Application.Resources>
 </Application>
