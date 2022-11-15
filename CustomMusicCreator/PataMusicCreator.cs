@@ -69,10 +69,15 @@ namespace CustomMusicCreator
                 var sgdConverted = _sgdConverter.ConvertAll(atracList.ToArray());
                 _logger.LogMessage($"Files are converted to SGD successfully.");
 
+                _logger.LogMessage("[ BND RePacker ] Start repacking progress... (logging may not supported)");
                 using var repacker = new BgmRepacker();
                 repacker.ReplaceFiles(sgdConverted);
                 repacker.ReplaceFile(new VoiceRetriever().LoadSgd(model.VoiceTheme));
                 repacker.Pack(model.DestinationPath);
+                _logger.LogMessage("Packing is successfully done.");
+                _logger.LogMessage("Cleaning the build...");
+                Directory.Delete(tempPath, true);
+                _logger.LogMessage($"The music is available on {model.DestinationPath} - Enjoy!");
             }
             catch(Exception e)
             {

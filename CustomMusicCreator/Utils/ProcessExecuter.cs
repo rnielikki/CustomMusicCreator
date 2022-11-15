@@ -14,6 +14,7 @@ namespace CustomMusicCreator.Utils
             {
                 throw new FileNotFoundException($"The executable [{exeName}] doesn't exist in {FilePathUtils.ResourcePath} directory.");
             }
+            FileValidatorUtil.ValidateFile(_exePath);
             _logger = logger;
         }
 

@@ -8,10 +8,12 @@ namespace CustomMusicCreator
         internal AtracConverter(ILogger logger)
         {
             _executer = new ProcessExecuter("psp_at3tool.exe", logger);
-            if (!File.Exists(Path.Combine(FilePathUtils.ResourcePath, "msvcr71.dll")))
+            var dllPath = Path.Combine(FilePathUtils.ResourcePath, "msvcr71.dll");
+            if (!File.Exists(dllPath))
             {
                 throw new FileNotFoundException($"Error: Couldn't find msvcr71.dll in {FilePathUtils.ResourcePath} directory.");
             }
+            FileValidatorUtil.ValidateFile(dllPath);
         }
         internal string[] Convert(string[] filePath, string prefix)
         {
