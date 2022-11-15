@@ -3,47 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PanPakapon"
+        xmlns:local="clr-namespace:PanPakapon" xmlns:sys="clr-namespace:System;assembly=netstandard"
         mc:Ignorable="d"
         Title="Pan Pakapon Music Converter v0.0" SizeToContent="WidthAndHeight" MinWidth="600">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid ShowGridLines="False" HorizontalAlignment="Stretch" Margin="28,20,28,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition />
-                <ColumnDefinition Width="100" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Label Content="Base" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Margin="0,6,12,6" IsEnabled="False" Text="" VerticalContentAlignment="Center" Name="Browser0_Result"/>
-            <Button Content="Browse..." Grid.Row="0" Grid.Column="2" Height="28" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="GetWavFile0" Name="Browser0"/>
-
-            <Label Content="Level1" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox TextWrapping="Wrap" Grid.Row="1" Grid.Column="1" Margin="0,6,12,6" IsEnabled="False" Text="" VerticalContentAlignment="Center" Name="Browser1_Result"/>
-            <Button Content="Browse..." Grid.Row="1" Grid.Column="2" Height="28" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="GetWavFile1" Name="Browser1"/>
-
-            <Label Content="Level2" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" Margin="0,6,12,6" IsEnabled="False" Text="" VerticalContentAlignment="Center" Name="Browser2_Result"/>
-            <Button Content="Browse..." Grid.Row="2" Grid.Column="2" Height="28" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="GetWavFile2" Name="Browser2"/>
-
-            <Label Content="Level3" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox TextWrapping="Wrap" Grid.Row="3" Grid.Column="1" Margin="0,6,12,6" IsEnabled="False" Text="" VerticalContentAlignment="Center" Name="Browser3_Result"/>
-            <Button Content="Browse..." Grid.Row="3" Grid.Column="2" Height="28" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="GetWavFile3" Name="Browser3"/>
-
-            <Label Width="120" Grid.Row="4" Grid.Column="0"  Content="Voice Theme" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ListBox Grid.Row="4" Grid.Column="1"  Grid.ColumnSpan="2"  Height="100" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="0,8,20,8" Name="VoiceList" >
-            </ListBox>
-            <Label Content="Result Path" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox TextWrapping="Wrap" Grid.Row="5" Grid.Column="1" Margin="0,6,12,6" IsEnabled="False" Text="" VerticalContentAlignment="Center" Name="BrowserR_Result"/>
-            <Button Content="Browse..." Grid.Row="5" Grid.Column="2" Height="28" HorizontalAlignment="Stretch" VerticalAlignment="Center" Name="BrowserR" Click="GetResultPath"/>
-        </Grid>
+        <local:FileSelector Label="Base" Seconds="8" x:Name="BaseTheme"></local:FileSelector>
+        <local:FileSelector Label="Level1" Seconds="16" x:Name="Level1Theme"></local:FileSelector>
+        <local:FileSelector Label="Level2" Seconds="20" x:Name="Level2Theme"></local:FileSelector>
+        <local:FileSelector Label="Level3" Seconds="68" x:Name="Level3Theme"></local:FileSelector>
+        <local:VoiceSelector x:Name="Voices"></local:VoiceSelector>
+        <local:SavePathSelector x:Name="SavePathGetter"></local:SavePathSelector>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Margin="0,25">
             <Button Content="Convert" Width="200" Click="Convert"/>
         </StackPanel>

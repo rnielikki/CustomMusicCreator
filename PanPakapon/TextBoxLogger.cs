@@ -1,11 +1,13 @@
 ﻿using CustomMusicCreator;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace PanPakapon
 {
-    internal class TextBoxLogger:ILogger
+    internal class TextBoxLogger : ILogger
     {
         private RichTextBox _textBox;
         internal TextBoxLogger(RichTextBox textBox)
@@ -30,12 +32,16 @@ namespace PanPakapon
         }
         private void Log(string message, Brush brush)
         {
-            var paragraph = new Paragraph(new Run(message));
-            paragraph.Foreground = brush;
-            _textBox.Document.Blocks.Add(paragraph);
-            _textBox.Focus();
-            _textBox.CaretPosition = _textBox.Document.ContentEnd;
-            _textBox.ScrollToEnd();
+            Application.Current.Dispatcher.BeginInvoke(() =>
+            {
+                var paragraph = new Paragraph(new Run(message));
+                paragraph.Foreground = brush;
+                _textBox.Document.Blocks.Add(paragraph);
+                _textBox.Focus();
+                _textBox.CaretPosition = _textBox.Document.ContentEnd;
+                _textBox.ScrollToEnd();
+
+            });
         }
     }
 }

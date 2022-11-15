@@ -8,11 +8,7 @@ namespace CustomMusicCreator
     /// </summary>
     internal class MusicSplitter
     {
-        private readonly TimeSpan _range;
-        internal MusicSplitter()
-        {
-            _range = new TimeSpan(TimeSpan.TicksPerMillisecond / 2);
-        }
+        private readonly WavValidator _validator = new WavValidator();
         internal string[] ValidateAndLoadPaths(DirectoryInfo directoryInfo, string filePath, string prefix, TimeSpan timeSpan)
         {
             using var reader = new WaveFileReader(filePath);
@@ -38,21 +34,23 @@ namespace CustomMusicCreator
             return filePaths;
         }
 
-        internal void ValidateWav(WaveFileReader reader) => ValidateWav(reader, new TimeSpan(0, 0, 4));
         internal void ValidateWav(WaveFileReader reader, TimeSpan timeSpan)
         {
-            var sampleRate = reader.WaveFormat.SampleRate;
-            var duration = reader.TotalTime;
-            var difference = duration - timeSpan;
-            if (difference > _range || difference < -_range)
+            switch (_validator.ValidateWav(reader, timeSpan))
             {
-                string detailMessage = (difference > TimeSpan.Zero) ? $"{difference} longer" : $"{-difference} shorter";
-                throw new Exceptions.DataLengthException
-                ($"Error: The time of the file must be EXACTLY [{timeSpan}], but it is [{duration}] ({detailMessage})");
+                case WavValidationCode.FormatError:
+                    throw new FormatException("The file is not valid WAV file.");
+                case WavValidationCode.SampleRateError:
+                    throw new InvalidDataException($"Sample rate of the file must be 44100Hz, but the stream is {reader.WaveFormat.SampleRate} Hz.");
+                case WavValidationCode.LengthError:
+                    throw new Exceptions.DataLengthException(GetLengthErrorMessage());
             }
-            else if (sampleRate != 44100)
+            string GetLengthErrorMessage()
             {
-                throw new InvalidDataException($"Sample rate of the file must be 44100Hz, but the stream is {sampleRate} Hz.");
+                var duration = reader.TotalTime;
+                var difference = duration - timeSpan;
+                string detailMessage = (difference > TimeSpan.Zero) ? $"{difference} longer" : $"{-difference} shorter";
+                return $"Error: The time of the file must be EXACTLY [{timeSpan}], but it is [{duration}] ({detailMessage})";
             }
         }
     }

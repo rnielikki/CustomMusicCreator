@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="PanPakapon.FileSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PanPakapon"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ImageSource x:Key="okImage">../resources/ok.png</ImageSource>
+        <ImageSource x:Key="xImage">../resources/x.png</ImageSource>
+    </UserControl.Resources>
+    <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                <Label Name="TextLabel" Margin="0"/>
+                <Label Name="TextTime" Margin="0"/>
+            </StackPanel>
+            <TextBox TextWrapping="Wrap" Grid.Row="0" Grid.Column="1" Margin="0,6,12,6" IsEnabled="False" Text="" VerticalContentAlignment="Center" Name="PathViewer"/>
+            <Button Content="Browse..." Grid.Row="0" Grid.Column="2" Height="28" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="GetWavFile" Name="Browser"/>
+            <Image Grid.Row="0" Grid.Column="3" Source="../resources/x.png" Height="30" Name="ValidationImage"></Image>
+    </Grid>
+
+</UserControl>

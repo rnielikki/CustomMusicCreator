@@ -16,11 +16,11 @@
             <RowDefinition/>
             <RowDefinition Height="56"/>
         </Grid.RowDefinitions>
-        <Label Content="Converting..." FontSize="32" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Height="53" Width="186" Margin="204,0,0,0"/>
+        <Label Content="[ Log ]" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Height="53"/>
         <RichTextBox Grid.Row="1" Margin="24,24,1,24" IsReadOnly="true" Name="LogBox" VerticalScrollBarVisibility="Visible">
             <FlowDocument>
             </FlowDocument>
         </RichTextBox>
-        <Button Grid.Row="1" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Height="36" IsEnabled="False" Name="CloseButton" Margin="247,258,0,0" Grid.RowSpan="2"/>
+        <Button Grid.Row="1" Content="Close" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Height="36" IsEnabled="False" Name="CloseButton" Margin="247,258,0,0" Grid.RowSpan="2" Click="CloseWindow"/>
     </Grid>
 </Window>

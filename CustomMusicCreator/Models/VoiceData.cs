@@ -16,14 +16,9 @@ namespace CustomMusicCreator
         private VoiceData()
         {
             _voicePath = Path.Combine(FilePathUtils.ResourcePath, _voiceRelativePath);
-            var voices = new DirectoryInfo(_voicePath).GetDirectories();
-            foreach (var voice in voices)
-            {
-                if (File.Exists(Path.Combine(voice.FullName, SgdName)))
-                {
-                    _availableVoices.Add(voice.Name, voice);
-                }
-            }
+            _availableVoices = new DirectoryInfo(_voicePath).GetDirectories()
+                .Where(dir => File.Exists(Path.Combine(dir.FullName, SgdName)))
+                .ToDictionary(dir => dir.Name, dir => dir);
         }
         public static VoiceData Get()
         {

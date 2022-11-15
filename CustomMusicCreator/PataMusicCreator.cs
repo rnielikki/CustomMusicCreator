@@ -28,16 +28,15 @@ namespace CustomMusicCreator
         /// <param name="level2MusicPath">No fever command music phase 2 (fever worm bounces)</param>
         /// <param name="level3MusicPath">Fever command music</param>
         /// <note>For level 2 and level 3 music, the first 4 seconds part is intro, which means, the loop part starts from 00:04.</note>
-        public void Convert(string baseMusicPath, string level1MusicPath, string level2MusicPath, string level3MusicPath,
-            string voiceTheme, string destinationPath)
+        public void Convert(PataMusicModel model)
         {
             try
             {
-                if (!Directory.Exists(destinationPath))
+                if (!Directory.Exists(model.DestinationDirectory))
                 {
-                    throw new InvalidDataException($"Directory [{destinationPath}] is invalid.");
+                    throw new InvalidDataException($"Directory [{model.DestinationDirectory}] is invalid.");
                 }
-                string tempPath = Path.Combine(destinationPath, FilePathUtils.TempPath);
+                string tempPath = Path.Combine(model.DestinationDirectory, FilePathUtils.TempPath);
                 if (Directory.Exists(tempPath))
                 {
                     Directory.Delete(tempPath, true);
@@ -47,15 +46,15 @@ namespace CustomMusicCreator
                 var musicUnits = new PataMusicUnit[]
                 {
                     new PataMusicUnit(_logger, _splitter, _atracConverter, tempDirectory)
-                        .SetInfo(baseMusicPath, "base", new TimeSpan(0, 0, 8)),
+                        .SetInfo(model.BaseMusicPath, "base", new TimeSpan(0, 0, 8)),
 
                     new PataMusicUnit(_logger, _splitter, _atracConverter, tempDirectory)
-                        .SetInfo(level1MusicPath, "level1", new TimeSpan(0, 0, 16)),
+                        .SetInfo(model.Level1MusicPath, "level1", new TimeSpan(0, 0, 16)),
 
                     new PataMusicUnit(_logger, _splitter, _atracConverter, tempDirectory)
-                    .SetInfo(level2MusicPath, "level2", new TimeSpan(0, 0, 20)),
+                    .SetInfo(model.Level2MusicPath, "level2", new TimeSpan(0, 0, 20)),
                     new PataMusicUnit(_logger, _splitter, _atracConverter, tempDirectory)
-                        .SetInfo(level3MusicPath, "level3", new TimeSpan(0, 1, 8))
+                        .SetInfo(model.Level3MusicPath, "level3", new TimeSpan(0, 1, 8))
                 };
                 foreach (var musicUnit in musicUnits)
                 {
@@ -72,8 +71,8 @@ namespace CustomMusicCreator
 
                 using var repacker = new BgmRepacker();
                 repacker.ReplaceFiles(sgdConverted);
-                repacker.ReplaceFile(new VoiceRetriever().LoadSgd(voiceTheme));
-                repacker.Pack(destinationPath);
+                repacker.ReplaceFile(new VoiceRetriever().LoadSgd(model.VoiceTheme));
+                repacker.Pack(model.DestinationPath);
             }
             catch(Exception e)
             {

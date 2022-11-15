@@ -11,4 +11,9 @@
     <ProjectReference Include="..\CustomMusicCreator\CustomMusicCreator.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="resources\ok.png" />
+    <Resource Include="resources\x.png" />
+  </ItemGroup>
+
 </Project>

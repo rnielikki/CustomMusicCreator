@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CustomMusicCreator;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PanPakapon
 {
@@ -19,41 +8,41 @@ namespace PanPakapon
     /// </summary>
     public partial class ConvertWindow : Window
     {
+        private bool _converting;
+        private readonly TextBoxLogger _logger;
+        private readonly PataMusicCreator _pataMusicCreator;
         public ConvertWindow()
         {
             InitializeComponent();
-            Owner = App.Current.MainWindow;
-            var logger = new TextBoxLogger(LogBox);
-            logger.Clear();
-            logger.LogMessage("message");
-            logger.LogMessage("message");
-            logger.LogError("error");
-            logger.LogMessage("message");
-            logger.LogWarning("warning");
-            logger.LogMessage("message");
-            logger.LogError("error");
-            logger.LogWarning("warning");
-            logger.LogMessage("message");
-            logger.LogMessage("message");
-            logger.LogMessage("message");
-            logger.LogWarning("warning");
-            logger.LogMessage("message");
-            logger.LogError("error");
-            logger.LogMessage("message");
-            logger.LogMessage("message");
-            logger.LogError("error");
-            logger.LogMessage("message");
-            logger.LogWarning("warning");
-            logger.LogMessage("message");
-            logger.LogError("error");
-            logger.LogWarning("warning");
-            logger.LogMessage("message");
-            logger.LogMessage("message");
-            logger.LogMessage("message");
-            logger.LogWarning("warning");
-            logger.LogMessage("message");
-            logger.LogError("error");
-
+            _logger = new TextBoxLogger(LogBox);
+            _pataMusicCreator = new PataMusicCreator(_logger);
         }
+        internal void Convert(PataMusicModel model)
+        {
+            if (_converting) return;
+            SetConvertingStatus(true);
+            _logger.Clear();
+            try
+            {
+                _pataMusicCreator.Convert(model);
+            }
+            catch
+            {
+                MessageBox.Show("Error while converting. Check the log to see detail.",
+                    "Converting error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                SetConvertingStatus(false);
+            }
+
+            return;
+        }
+        private void SetConvertingStatus(bool converting)
+        {
+            _converting = converting;
+            CloseButton.IsEnabled = !converting;
+        }
+        private void CloseWindow(object sender, RoutedEventArgs e) => Close();
     }
 }
