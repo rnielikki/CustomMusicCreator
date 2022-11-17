@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "CustomMusicCreator.ConsoleApp": {
-      "commandName": "Project",
-      "nativeDebugging": true
-    }
-  }
-}

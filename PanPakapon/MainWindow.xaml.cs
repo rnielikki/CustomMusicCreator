@@ -37,8 +37,8 @@ namespace PanPakapon
             {
                 TabIndex.CompareTo(0);
                 var convertWindow = new ConvertWindow();
-                convertWindow.Owner= this;
-                convertWindow.DataContext= this;
+                convertWindow.Owner = this;
+                convertWindow.DataContext = this;
                 convertWindow.Show();
                 convertWindow.Convert(
                     new CustomMusicCreator.PataMusicModel(
@@ -47,5 +47,9 @@ namespace PanPakapon
                     );
             }
         }
+
+        private void OpenHelp(object sender, RoutedEventArgs e) => new HelpWindow().ShowDialog();
+
+        private void OpenCredits(object sender, RoutedEventArgs e) => new CreditWindow().ShowDialog();
     }
 }

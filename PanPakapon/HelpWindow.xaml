@@ -5,8 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PanPakapon"
         mc:Ignorable="d"
-        Title="HelpWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="How to use" Width="800" Height="600">
+    <Window.Resources>
+        <Style x:Key="Title" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="LightSkyBlue"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="24,8,24,-8" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="LightBlue"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="24,16,24,8" />
+        </Style>
+        <Style TargetType="Image">
+            <Setter Property="Stretch" Value="None"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <ScrollViewer Margin="20,20,20,10" Height="480" Background="black">
+            <StackPanel>
+                <TextBlock>Music must be wav file with exact time (±1ms is allowed) and certain sample rate (44100 Hz).
+            Make sure that music is 120bpm, and peaks every 0.5 seconds.</TextBlock>
+                <TextBlock Style="{StaticResource Title}">Base</TextBlock>
+                <TextBlock>This is played with no input. this music must be 8 seconds, and first 4 seconds of them is INTRO part (played only once in whole mission).
+            Last 4 seconds are repeated, so make sure to make the loop part smooth.</TextBlock>
+                <Image Source="/resources/help/base.png" />
+                <TextBlock Style="{StaticResource Title}">Level1</TextBlock>
+                <TextBlock>This is played when the game got command input (with first command, or bad command). this music must be 16 seconds WITHOUT INTRO.
+            Make sure the whole looping part is smooth.</TextBlock>
+                <Image Source="/resources/help/level1.png" />
+                <TextBlock Style="{StaticResource Title}">Level2</TextBlock>
+                <TextBlock>This is played when the game got good command input (good chance to enter fever).
+            this music must be 20 seconds with INTRO.</TextBlock>
+                <Image Source="/resources/help/level2.png" />
+                <TextBlock Style="{StaticResource Title}">Level3</TextBlock>
+                <TextBlock>This is fever part, including INTRO part. Make sure the music is looping from 68s (end) part to 4s part.
+        Also, make sure every part is in rhythm (for example, liten from exactly 52 seconds, to check if the music is in rhythm).</TextBlock>
+                <Image Source="/resources/help/level3.png" />
+                <TextBlock>Select voice theme and output path, and hit the Convert button. This produces BGM.DAT file.
+            Replace the music in Patapon 3 DxD rom "SOUNDS/BGM_XX (the number you want to replace)" and it's ready.</TextBlock>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Content="Close" VerticalAlignment="Center" Width="120" Height="36" Click="CloseWindow"/>
+    </StackPanel>
 </Window>

@@ -15,15 +15,14 @@ using System.Windows.Shapes;
 namespace PanPakapon
 {
     /// <summary>
-    /// Interaction logic for HelpWindow.xaml
+    /// Interaction logic for CreditWindow.xaml
     /// </summary>
-    public partial class HelpWindow : Window
+    public partial class CreditWindow : Window
     {
-        public HelpWindow()
+        public CreditWindow()
         {
             InitializeComponent();
         }
-
         private void CloseWindow(object sender, RoutedEventArgs e) => Close();
     }
 }

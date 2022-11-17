@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PanPakapon"
         mc:Ignorable="d" Height="400" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
-        WindowStyle="None">
+        WindowStyle="None"
+        >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="571*"/>
