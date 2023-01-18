@@ -47,6 +47,10 @@
         <TextBlock Style="{StaticResource Content}">Owocek</TextBlock>
         <TextBlock Style="{StaticResource Content2}">, Nemoumbra</TextBlock>
         </StackPanel>
+        <StackPanel Orientation="Horizontal">
+        <TextBlock Style="{StaticResource Title}">Custom Theme Voices</TextBlock>
+            <TextBlock Style="{StaticResource Content}">shockturtle/Bangg, Deathninja (extracted)</TextBlock>
+        </StackPanel>
         <Button Content="Close" VerticalAlignment="Center" Width="120" Height="36" Click="CloseWindow" Margin="0,20"/>
     </StackPanel>
 </Window>

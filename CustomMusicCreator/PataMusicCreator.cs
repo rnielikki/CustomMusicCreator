@@ -22,11 +22,7 @@ namespace CustomMusicCreator
         /// <summary>
         /// Start converting music.
         /// </summary>
-        /// <param name="baseMusicPath0">Intro music. played only once.</param>
-        /// <param name="baseMusicPath1">Base music, before command input.</param>
-        /// <param name="level1MusicPath">No fever command music phase 1 (fever worm doesn't bounce)</param>
-        /// <param name="level2MusicPath">No fever command music phase 2 (fever worm bounces)</param>
-        /// <param name="level3MusicPath">Fever command music</param>
+        /// <param name="model">Patapon music model, that contains music data.</param>
         /// <note>For level 2 and level 3 music, the first 4 seconds part is intro, which means, the loop part starts from 00:04.</note>
         public void Convert(PataMusicModel model)
         {
@@ -70,14 +66,23 @@ namespace CustomMusicCreator
                 _logger.LogMessage($"Files are converted to SGD successfully.");
 
                 _logger.LogMessage("[ BND RePacker ] Start repacking progress... (logging may not supported)");
-                using var repacker = new BgmRepacker();
-                repacker.ReplaceFiles(sgdConverted);
-                repacker.ReplaceFile(new VoiceRetriever().LoadSgd(model.VoiceTheme));
-                repacker.Pack(model.DestinationPath);
-                _logger.LogMessage("Packing is successfully done.");
-                _logger.LogMessage("Cleaning the build...");
-                Directory.Delete(tempPath, true);
-                _logger.LogMessage($"The music is available on {model.DestinationPath} - Enjoy!");
+
+                try
+                {
+                    using var repacker = new BgmRepacker();
+                    repacker.ReplaceFiles(sgdConverted);
+                    repacker.ReplaceFile(new VoiceRetriever().LoadSgd(model.VoiceTheme));
+                    repacker.Pack(model.DestinationPath);
+                    _logger.LogMessage("Packing is successfully done.");
+                    _logger.LogMessage("Cleaning the build...");
+                    Directory.Delete(tempPath, true);
+                    _logger.LogMessage($"The music is available on {model.DestinationPath} - Enjoy!");
+                }
+                catch (DllNotFoundException e)
+                {
+                    throw new DllNotFoundException("DLL not found. If you already have bndrepacker.dll, Try downloading Visual C++: " +
+                        "https://learn.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist", e);
+                }
             }
             catch(Exception e)
             {
