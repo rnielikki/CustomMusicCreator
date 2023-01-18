@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="0"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Padding="15 5 5 5">
-                <Hyperlink NavigateUri="https://rnielikki.github.io/ear-trial/">
+                <Hyperlink NavigateUri="https://rnielikki.github.io/ear-trial/" RequestNavigate="LinkClick">
                     <Hyperlink.Style>
                         <Style TargetType="Hyperlink">
                             <Setter Property="Foreground" Value="#afa0ff"></Setter>
@@ -34,7 +34,7 @@
                             </Style.Triggers>
                         </Style>
                     </Hyperlink.Style>
-                    <Run FontWeight="Bold" FontSize="11pt">Test music </Run><Run FontSize="10pt">(limited voice theme)</Run>
+                    <Run FontWeight="Bold" FontSize="11pt" Text="Test Music "/><Run FontSize="10pt" Text="(limited voice theme)" />
                 </Hyperlink>
             </TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="30" Margin="0">

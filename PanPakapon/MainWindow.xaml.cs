@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
+using System.Windows.Documents;
 
 namespace PanPakapon
 {
@@ -51,5 +53,10 @@ namespace PanPakapon
         private void OpenHelp(object sender, RoutedEventArgs e) => new HelpWindow().ShowDialog();
 
         private void OpenCredits(object sender, RoutedEventArgs e) => new CreditWindow().ShowDialog();
+
+        private void LinkClick(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+             Process.Start(new ProcessStartInfo(e.Uri.ToString()) { UseShellExecute = true });
+        }
     }
 }
