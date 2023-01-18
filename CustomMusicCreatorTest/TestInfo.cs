@@ -8,7 +8,7 @@ namespace CustomMusicCreatorTest
 {
     internal static class TestInfo
     {
-        internal const string FilePath = "testfiles";
+        internal const string FilePath = "test files";
         internal static string GetFilePath(string dir, string file)
         {
             return Path.Combine(FilePath, dir, file);

@@ -32,16 +32,16 @@ namespace CustomMusicCreator
             var newFullPath = FilePathUtils.GetSiblingPath(fullPath, newName);
             using var stream = File.OpenRead(filePath);
             //execute here
-            _executer.ExecuteProcess($"-e -br 48 {fullPath} {newFullPath}");
+            _executer.ExecuteProcess($"-e -br 48 \"{fullPath}\" \"{newFullPath}\"");
             if (!File.Exists(newFullPath))
             {
                 throw new InvalidOperationException($"[PSP_AT3TOOL] Failed to create file from {fileName}. " +
-                    $"The converting process didn't generate the file.");
+                    $"Converting process failed.");
             }
             else if (new FileInfo(newFullPath).Length == 0)
             {
                 throw new InvalidOperationException($"[PSP_AT3TOOL] Failed to create file from {fileName}. " +
-                    $"The converting process generated empty file, possibly having format issue.");
+                    $"An empty file was created as result. Did you check format?");
             }
             return newFullPath;
         }
