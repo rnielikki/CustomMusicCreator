@@ -15,7 +15,16 @@ namespace CustomMusicCreator
         public readonly string VoiceTheme;
         public readonly string DestinationPath;
         public readonly string DestinationDirectory;
-        public PataMusicModel(string baseMusicPath,string level1MusicPath, string level2MusicPath, string level3MusicPath,
+        /// <summary>
+        /// Creates music data for passing to <see cref="PataMusicCreator"/>.
+        /// </summary>
+        /// <param name="baseMusicPath">No command (intro+loop) music path.</param>
+        /// <param name="level1MusicPath">Command (loop) music path.</param>
+        /// <param name="level2MusicPath">Good Command (before fever, intro+loop) music path.</param>
+        /// <param name="level3MusicPath">Fever (intro+loop) music path.</param>
+        /// <param name="voiceTheme">Voice theme name.</param>
+        /// <param name="destinationPath">The path directory for the result file. Must be writable.</param>
+        public PataMusicModel(string baseMusicPath, string level1MusicPath, string level2MusicPath, string level3MusicPath,
             string voiceTheme, string destinationPath)
         {
             BaseMusicPath = baseMusicPath;
