@@ -5,6 +5,7 @@
         Valid,
         FormatError,
         LengthError,
-        SampleRateError
+        SampleRateError,
+        EncodingError
     }
 }

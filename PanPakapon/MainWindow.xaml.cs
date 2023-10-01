@@ -9,7 +9,6 @@ namespace PanPakapon
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string ResultPath = "";
         public MainWindow()
         {
             InitializeComponent();
@@ -22,7 +21,7 @@ namespace PanPakapon
             {
                 MessageBox.Show(
                     "Some of WAV files are not valid. Make sure all WAVs are in correct format" +
-                    "\n(With certain ACCURATE time with 44100 Hz Frequency)",
+                    "\n(With certain ACCURATE time, +- 1ms)",
                     "Invalid data found", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else if (!Voices.HasValidVoice)
@@ -32,7 +31,7 @@ namespace PanPakapon
             }
             else if (!SavePathGetter.HasValidPath)
             {
-                MessageBox.Show("Select desination to save the result.",
+                MessageBox.Show("Select valid desination to save the result.",
                     "Invalid result path", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else

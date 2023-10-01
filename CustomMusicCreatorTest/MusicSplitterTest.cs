@@ -19,10 +19,11 @@ namespace CustomMusicCreatorTest
             var directoryInfo = Directory.CreateDirectory(tempPath);
 
             using var reader = new WaveFileReader(inputWav);
-            var musicSplitter = new MusicSplitter();
+            var musicSplitter = new MusicSplitter(new Mocks.MockLogger());
+            var validator = new WavValidator();
             foreach (var path in musicSplitter.SplitMusic(reader, directoryInfo, "test"))
             {
-                musicSplitter.ValidateWav(new WaveFileReader(path), new TimeSpan(0,0,4));
+                validator.ValidateWav(path, new TimeSpan(0, 0, 4));
             }
         }
     }

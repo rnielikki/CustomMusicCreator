@@ -36,22 +36,14 @@ namespace PanPakapon.ConsoleApp
                     args[0], args[1], args[2], args[3], args[4], filePath
                     ));
             }
-            /*
-            var creator = new PataMusicCreator(new ConsoleLogger());
-            creator.Convert(new PataMusicModel(
-                ));
-            */
-            /*
-new CustomMusicCreator.PataMusicModel(
-    BaseTheme.FileName, Level1Theme.FileName, Level2Theme.FileName, Level3Theme.FileName,
-    Voices.VoiceName, SavePathGetter.ResultPath)
-);
-            */
         }
         static void PrintVoices()
         {
-            Console.WriteLine("Available voices:\n" + string.Join('\n', VoiceData.Get().Voices)
-                +"\nRemember to put voice name with number!");
+            Console.WriteLine("Available voices:\n" + string.Join('\n', VoiceData.Get().Voices) +
+                "\nRemember to put voice name with number!\n"+
+                "Adding Custom Voice:\n" +
+                "Make *new folder* in \"resources/files/voices\", and put \"ptp_btl_bgm_voice.dat\" there. Then open the Pan Pakapon app - you'll see the custom music from the list.\n" +
+                "For more info about Custom chants, check this guide (by Axus): https://docs.google.com/document/d/1rvkxxJ8OcqYgyw_RP4jU3eVAE-uf8FBdI-C-Yibi-Ac/edit");
         }
     }
 }

@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PanPakapon" xmlns:sys="clr-namespace:System;assembly=netstandard"
+        xmlns:local="clr-namespace:PanPakapon"
         mc:Ignorable="d"
         Title="Pan Pakapon Music Creator" SizeToContent="WidthAndHeight" MinWidth="600">
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <StackPanel Orientation="Vertical" Margin="8 20 8 12" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <local:FileSelector Label="Base" Seconds="8" x:Name="BaseTheme"></local:FileSelector>
         <local:FileSelector Label="Level1" Seconds="16" x:Name="Level1Theme"></local:FileSelector>
         <local:FileSelector Label="Level2" Seconds="20" x:Name="Level2Theme"></local:FileSelector>

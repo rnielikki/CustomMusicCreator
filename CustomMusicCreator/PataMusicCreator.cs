@@ -15,7 +15,7 @@ namespace CustomMusicCreator
         public PataMusicCreator(ILogger logger)
         {
             _logger = logger;
-            _splitter = new MusicSplitter();
+            _splitter = new MusicSplitter(logger);
             _atracConverter = new AtracConverter(logger);
             _sgdConverter = new SgdConverter(logger);
         }

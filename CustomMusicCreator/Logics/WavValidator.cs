@@ -34,6 +34,10 @@ namespace CustomMusicCreator
             {
                 return WavValidationCode.SampleRateError;
             }
+            else if (reader.WaveFormat.Encoding != WaveFormatEncoding.Pcm || reader.WaveFormat.BitsPerSample != 16)
+            {
+                return WavValidationCode.EncodingError;
+            }
             return WavValidationCode.Valid;
         }
     }

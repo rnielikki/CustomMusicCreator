@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="resources\convert.png" />
     <Resource Include="resources\ok.png" />
     <Resource Include="resources\x.png" />
     <Resource Include="resources\help\base.png" />

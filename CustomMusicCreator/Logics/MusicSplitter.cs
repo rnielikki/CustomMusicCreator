@@ -9,10 +9,17 @@ namespace CustomMusicCreator
     internal class MusicSplitter
     {
         private readonly WavValidator _validator = new WavValidator();
+        private readonly WavFormatConverter _converter = new WavFormatConverter();
+        private readonly ILogger _logger;
+        internal MusicSplitter(ILogger logger)
+        {
+            _logger = logger;
+        }
         internal string[] ValidateAndLoadPaths(DirectoryInfo directoryInfo, string filePath, string prefix, TimeSpan timeSpan)
         {
-            using var reader = new WaveFileReader(filePath);
-            ValidateWav(reader, timeSpan);
+            using var reader = new WaveFileReader(
+                    ValidateWav(filePath, timeSpan, Path.Combine(directoryInfo.FullName, $"{prefix}-converted.wav"))
+                );
             if (timeSpan.Seconds <= 4)
             {
                 throw new InvalidOperationException("Timespan must be more than 4 seconds.");
@@ -34,16 +41,27 @@ namespace CustomMusicCreator
             return filePaths;
         }
 
-        internal void ValidateWav(WaveFileReader reader, TimeSpan timeSpan)
+        private string ValidateWav(string path, TimeSpan timeSpan, string altFileName)
         {
-            switch (_validator.ValidateWav(reader, timeSpan))
+            using WaveFileReader reader = new WaveFileReader(path);
+            var validationResult = _validator.ValidateWav(reader, timeSpan);
+            if (WavFormatConverter.IsConvertable(validationResult))
             {
+                _logger.LogWarning($"{path}: format is NOT 44100Hz or/and 16-bit signed PCM. This file will be automatically converted.");
+                _converter.Convert(path, altFileName);
+                return altFileName;
+            }
+            switch (validationResult)
+            {
+                case WavValidationCode.Valid:
+                    _logger.LogMessage($"{path}: succesfully validated.");
+                    return path;
                 case WavValidationCode.FormatError:
                     throw new FormatException("The file is not valid WAV file.");
-                case WavValidationCode.SampleRateError:
-                    throw new InvalidDataException($"Sample rate of the file must be 44100Hz, but the stream is {reader.WaveFormat.SampleRate} Hz.");
                 case WavValidationCode.LengthError:
                     throw new Exceptions.DataLengthException(GetLengthErrorMessage());
+                default:
+                    throw new InvalidOperationException("An unknown error occured :(");
             }
             string GetLengthErrorMessage()
             {
